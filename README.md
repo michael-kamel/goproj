@@ -1,7 +1,7 @@
 # goproj
 Go
 
-#How to install go on Ubuntu 16.04
+### How to install go on Ubuntu 16.04
 
 1) download Go from their website or use this:
 
@@ -24,7 +24,7 @@ and paste those:
 
 save and exit =)
 
-#test the installation
+### test the installation
 
 1)
 
