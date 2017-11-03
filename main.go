@@ -29,13 +29,13 @@ func testBot() {
 	buySellConnector := bot.BuildSingleTransitionConnector(&byeComponent)
 	byeConnector := bot.BuildSingleTransitionConnector(&byeComponent)
 
-	welcomeComponent.Question = func(state *bot.BotState) string { return ""}
+	welcomeComponent.Question = bot.BuildSimpleQuestion("")
 	welcomeComponent.Name = "WelcomeComponent"
 	welcomeComponent.Parser = func(message string) parser.ParserResult { return parser.ParserResult{Success:true,Message:""}}
-	welcomeComponent.Handler = func(message string, state *bot.BotState) string { return "Hello and welcome to the shit service"}
+	welcomeComponent.Handler = bot.BuildSimpleHandler("Hello and welcome to the shit service")
 	welcomeComponent.Connector = welcomeConnector
 
-	buySellComponent.Question = func(state *bot.BotState) string { return "Are you a buyer or seller"}
+	buySellComponent.Question = bot.BuildSimpleQuestion("Are you a buyer or seller?")
 	buySellComponent.Name = "BuySellComponent"
 	buySellComponent.Parser = func(message string) parser.ParserResult {
 		if message == "buy" { 
@@ -46,17 +46,17 @@ func testBot() {
 			return parser.ParserResult{Success:false,Message:""}
 		}
 	}
-	buySellComponent.Handler = func(message string, state *bot.BotState) string { 
+	buySellComponent.Handler = func(message interface{}, state *bot.BotState) string { 
 		state.Data["type"] = message
 		return fmt.Sprintf("So you are a %s", message)
 	}
 
 	buySellComponent.Connector = buySellConnector
 
-	byeComponent.Question = func(state *bot.BotState) string { return "Your response has been recorded"}
+	byeComponent.Question = bot.BuildSimpleQuestion("Your response has been recorded")
 	byeComponent.Name = "ByeComponent"
 	byeComponent.Parser = func(message string) parser.ParserResult { return parser.ParserResult{Success:true,Message:""}}
-	byeComponent.Handler = func(message string, state *bot.BotState) string { return ""}
+	byeComponent.Handler = bot.BuildSimpleHandler("")
 	byeComponent.Connector = byeConnector
 
 
@@ -65,6 +65,8 @@ func testBot() {
 		welcomeComponent,
 		map[string]interface{}{}}
 	fmt.Println(bot.Process("test", &botState, botDesc))
+	fmt.Println(bot.Process("ana gy ahazar", &botState, botDesc))
+	fmt.Println(bot.Process("ana gy ahazar", &botState, botDesc))
 	fmt.Println(bot.Process("ana gy ahazar", &botState, botDesc))
 	fmt.Println(bot.Process("buy", &botState, botDesc))
 	fmt.Println(bot.Process(".", &botState, botDesc))
