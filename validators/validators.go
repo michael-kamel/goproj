@@ -9,6 +9,7 @@ import (
 type ValidationReturn struct {
 	Success bool
 	Message string
+	KeyValues map[string]string
 }
 
 func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
@@ -44,5 +45,5 @@ func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
 	// 	i++
 	// }
 
-	return ValidationReturn{}
+	return ValidationReturn{Success:true, KeyValues:JSONData}
 }

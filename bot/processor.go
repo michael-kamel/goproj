@@ -18,7 +18,7 @@ func Process(message string, state *BotState, bot Bot) string {
 		return message
 	}
 }
-func composeResponse(question string, answer string) string{
+func composeResponse(question string, answer string) string {
 	if question != "" {
 		return strings.Join([]string{question, answer}, ". ")
 	} else {
