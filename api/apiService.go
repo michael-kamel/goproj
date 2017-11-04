@@ -1,7 +1,7 @@
 package api
 
 type APIService interface {
-	getData(url string, query map[string]string, data interface{})
-	postData(url string, body map[string]string, data interface{})
-	init()
+	GetData(url string, query map[string]interface{}, data interface{})
+	PostData(url string, body map[string]interface{}, data interface{})
+	Init()
 }

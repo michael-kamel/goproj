@@ -10,10 +10,10 @@ type MinJsonApiService struct{
 	client *http.Client
 	Headers map[string]string
 }
-func (this *MinJsonApiService) init() {
+func (this *MinJsonApiService) Init() {
 	this.client = &http.Client{}
 }
-func (this *MinJsonApiService) getData(url string, query map[string]string, data interface{}) {
+func (this *MinJsonApiService) GetData(url string, query map[string]interface{}, data interface{}) {
 	req, err := http.NewRequest("GET", url, nil)
     if err != nil {
         panic(err)
@@ -28,7 +28,7 @@ func (this *MinJsonApiService) getData(url string, query map[string]string, data
 	json.NewDecoder(resp.Body).Decode(data)
 	resp.Body.Close()
 }
-func (this *MinJsonApiService) postData(url string, body map[string]string, data interface{}) {
+func (this *MinJsonApiService) PostData(url string, body map[string]interface{}, data interface{}) {
 	jsonString, err := json.Marshal(body)
 	if err != nil {
         panic(err)
