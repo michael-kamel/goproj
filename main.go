@@ -70,5 +70,19 @@ func testBot() {
 	fmt.Println(bot.Process("ana gy ahazar", &botState, botDesc))
 	fmt.Println(bot.Process("buy", &botState, botDesc))
 	fmt.Println(bot.Process(".", &botState, botDesc))
-	fmt.Println(bot.Process("..", &botState, botDesc))
+	fmt.Println(bot.Process("bye", &botState, botDesc))
+
+
+	botState2 := bot.BotState{
+		welcomeComponent,
+		map[string]interface{}{}}
+	fmt.Println(bot.Process("test", &botState2, botDesc))
+	fmt.Println(bot.Process("bye", &botState2, botDesc))
+
+	botState3 := bot.BotState{
+		welcomeComponent,
+		map[string]interface{}{}}
+	fmt.Println(bot.Process("test", &botState3, botDesc))
+	fmt.Println(bot.Process("buy", &botState3, botDesc))
+	fmt.Println(bot.Process("bye", &botState3, botDesc))
 }
