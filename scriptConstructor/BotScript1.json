@@ -1,0 +1,71 @@
+{
+    "BotScript":
+    [
+        {
+            "Name":"phase0",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "NextPhase":"phase1",
+                    "Replies":["Hello and welcome to the service! Do you want to buy or sell? Please type \"Buy\" or \"Sell\"."],
+                    "CustomFunction":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase1",
+            "Transitions":
+            [
+                {
+                    "Keywords":["buy"],
+                    "NextPhase":"phase2buy",
+                    "Replies":["Okay you want to buy. I'll search for you. What price range do you want? Enter a number."],
+                    "CustomFunction":"null"
+                },
+                {
+                    "Keywords":["sell"],
+                    "NextPhase":"phase2sell",
+                    "Replies":["Okay what is the type of item that you want to sell?"],
+                    "CustomFunction":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase2buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "NextPhase":"bye",
+                    "Replies":["For how much do you want to buy it?"],
+                    "CustomFunction":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase2sell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "NextPhase":"bye",
+                    "Replies":["sthsth"],
+                    "CustomFunction":"null"
+                }
+            ]
+        },
+        {
+            "Name":"bye",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "NextPhase":"bye",
+                    "Replies":["done"],
+                    "CustomFunction":"null"
+                }
+            ]
+        }
+    ]
+}

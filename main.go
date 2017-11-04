@@ -7,6 +7,9 @@ import (
 	"./handlers"
 	"./bot"
 	"./parser"
+	"./scriptConstructor"
+	"math/rand"
+	"time"
 )
 
 type jsonResponse struct {
@@ -15,7 +18,9 @@ type jsonResponse struct {
 }
 
 func main() {
-	testBot()
+	rand.Seed(time.Now().UTC().UnixNano())
+	scriptConstructor.ConstructBot();
+	//testBot()
 	http.HandleFunc("/welcome", handlers.WelcomeHandler);
 	http.HandleFunc("/chat", handlers.ChatHandler);
 	http.ListenAndServe(":9000", nil);
@@ -38,7 +43,7 @@ func testBot() {
 	buySellComponent.Question = bot.BuildSimpleQuestion("Are you a buyer or seller?")
 	buySellComponent.Name = "BuySellComponent"
 	buySellComponent.Parser = func(message string) parser.ParserResult {
-		if message == "buy" { 
+		if message == "buy" {
 			return parser.ParserResult{Success:true,Message:"buyer"}
 		} else  if message == "sell"{
 			return parser.ParserResult{Success:true,Message:"seller"}
@@ -50,7 +55,6 @@ func testBot() {
 		state.Data["type"] = message
 		return fmt.Sprintf("So you are a %s", message)
 	}
-
 	buySellComponent.Connector = buySellConnector
 
 	byeComponent.Question = bot.BuildSimpleQuestion("Your response has been recorded")
@@ -61,6 +65,8 @@ func testBot() {
 
 
 	botDesc := bot.Bot{[]string{"I don't understand", "No Comprendo", "what the hell"}}
+	
+	
 	botState := bot.BotState{
 		welcomeComponent,
 		map[string]interface{}{}}

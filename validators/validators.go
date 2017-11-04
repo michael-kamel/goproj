@@ -18,7 +18,6 @@ func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
 		return ValidationReturn{Success:false, Message:"Invalid HTTP Verb"}
 	}
 
-	//decode body as json
 	var JSONData map[string]string
 	decoder := json.NewDecoder(r.Body);
 	e := decoder.Decode(&JSONData);

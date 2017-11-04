@@ -16,7 +16,7 @@ type ListingResponse struct {
 }
 
 
-func (this *ListingAPIService) getListings(listingSpec ListingSpecification) []models.Listing{
+func (this *ListingAPIService) getListings(listingSpec ListingSpecification) []models.Listing {
 	query := make(map[string]interface{})
 	query["category"] = listingSpec.Category
 	query["location"] = listingSpec.Location

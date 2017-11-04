@@ -2,7 +2,7 @@ package bot
 
 import (
 	"math/rand"
-	"time"
+	//"time"
 	"strings"
 )
 
@@ -13,7 +13,6 @@ func Process(message string, state *BotState, bot Bot) string {
 		state.CurrentComponent = state.CurrentComponent.Connector.Transition(state)
 		return composeResponse(answer, state.CurrentComponent.Question(state))
 	} else {
-		rand.Seed(time.Now().Unix())
 		message := bot.UnhandledMessages[rand.Intn(len(bot.UnhandledMessages))]
 		return message
 	}
