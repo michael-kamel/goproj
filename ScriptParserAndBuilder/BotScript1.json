@@ -9,12 +9,14 @@
                     "Keywords":["buy"],
                     "NextState":"phase2buy",
                     "Replies":["Okay you want to buy. I'll search for you. What price do you want? Enter a number."],
+                    "Rejects":["Sorry I can't understand your response. Please enter the price."],
                     "CustomFunction":"null"
                 },
                 {
                     "Keywords":["sell"],
                     "NextState":"phase2sell",
                     "Replies":["Okay what is the type of item that you want to sell?"],
+                    "Rejects":["Sorry I can't understand your response. Please enter a valid type"],
                     "CustomFunction":"null"
                 }
             ]
@@ -24,9 +26,10 @@
             "Transitions":
             [
                 {
-                    "Keywords":[],
+                    "Keywords":["e"],
                     "NextState":"bye",
                     "Replies":["For how much do you want to buy it?"],
+                    "Rejects":["Sorry I can't understand your response. Please enter the price."],
                     "CustomFunction":"null"
                 }
             ]
@@ -39,6 +42,7 @@
                     "Keywords":[],
                     "NextState":"bye",
                     "Replies":["sthsth"],
+                    "Rejects":["rrr"],
                     "CustomFunction":"null"
                 }
             ]
@@ -51,6 +55,7 @@
                     "Keywords":[],
                     "NextState":"bye",
                     "Replies":["done"],
+                    "Rejects":[""],
                     "CustomFunction":"null"
                 }
             ]

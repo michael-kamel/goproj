@@ -5,7 +5,7 @@ import (
 	"os"
 	"io/ioutil"
 	"encoding/json"
-	"reflect"
+	//"reflect"
 	//"../bot"
 	//"../parser"
 )
@@ -21,6 +21,7 @@ type Transition struct {
 	Keywords []string
 	NextState string
 	Replies []string
+	Rejects []string
 	CustomFunction string
 }
 
@@ -35,7 +36,7 @@ func ConstructBot() map[string]State {
         os.Exit(1)
 	}
 	//fmt.Printf(string(file))
-	fmt.Println(reflect.TypeOf(file))
+	//fmt.Println(reflect.TypeOf(file))
 
 	var parsedBot ParsedBot
 	err := json.Unmarshal(file, &parsedBot)
@@ -44,7 +45,7 @@ func ConstructBot() map[string]State {
 		os.Exit(1)
 	}
 
-	fmt.Println(parsedBot)
+	//fmt.Println(parsedBot)
 
 	StatesMap := map[string]State{}
 
@@ -52,7 +53,7 @@ func ConstructBot() map[string]State {
 		StatesMap[parsedBot.BotScript[i].Name]  = parsedBot.BotScript[i]
 	}
 
-	fmt.Println(StatesMap)
+	//fmt.Println(StatesMap)
 
 	return StatesMap //constructedBot
 

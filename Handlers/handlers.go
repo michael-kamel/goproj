@@ -11,18 +11,19 @@ import (
 	//"strconv"
 	//"../parser"
 	//"../scriptParserAndBuilder"
-	"../Bot"
+	"../Processor"
 )
 
 func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 	generatedUUID := time.Now().UnixNano() / int64(time.Millisecond)
+	fmt.Println(generatedUUID);
 	SessionManagement.GenerateNewUserSession(fmt.Sprintf("%v", generatedUUID))
 
 	//response := bot.Process("", )
 
 	//respond with welcome message
 	w.Header().Set("Content-Type", "application/json");
-	jData, _ := json.Marshal(map[string]string{"message":"Hi! E7na sherket el mor3ebeen el ma7dooda, would you like to buy or sell?", "uuid":string(generatedUUID)});
+	jData, _ := json.Marshal(map[string]string{"message":"Hi! E7na sherket el mor3ebeen el ma7dooda, would you like to buy or sell?", "uuid":fmt.Sprintf("%v", generatedUUID)});
 	w.Write(jData)
 }
 
@@ -33,9 +34,9 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userSession := SessionManagement.GetUserSession(s.KeyValues["UUID"])
-	fmt.Println(userSession);
-	w.Write([]byte(Bot.Process(userSession, s.KeyValues["message"])))
+	//userSession := *SessionManagement.UserSessions[s.KeyValues["UUID"]]
+	//fmt.Println(userSession);
+	w.Write([]byte(Processor.Process(s.KeyValues["UUID"], s.KeyValues["message"])))
 
 
 

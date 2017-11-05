@@ -17,16 +17,17 @@ type UserSession struct {
 		//common data (for both buyers and sellers)
 		ItemPrice int
 	}
+	RejectMessages []string //previous state needs to set this
 }
 
-var UserSessions map[string]UserSession = map[string]UserSession{}
+var UserSessions map[string]*UserSession = make(map[string]*UserSession)
 
-func GetUserSession(uuid string) UserSession {
+/*func GetUserSession(uuid string) UserSession {
 	return UserSessions[uuid]
-}
+}*/
 
 func GenerateNewUserSession(uuid string) {
-	UserSessions[uuid] = UserSession{UUID:uuid, State:"Phase0"}
+	UserSessions[uuid] = &UserSession{UUID:uuid, State:"phase1", RejectMessages:[]string{"Please type buy or sell."}}
 }
 
 func DeleteSession(uuid string) {

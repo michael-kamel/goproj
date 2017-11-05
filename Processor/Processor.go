@@ -1,4 +1,4 @@
-package Bot
+package Processor
 
 import (
 	"../Parser"
@@ -36,10 +36,33 @@ type stateDependentTransitionError  struct {
 
 
 
+
 //processor
-func Process(session SessionManagement.UserSession, message string) string {
+func Process(uuid string, message string) string {
+	fmt.Println(uuid)
+	session := SessionManagement.UserSessions[uuid]
+	fmt.Println(session)
 	parserResult := Parser.MultiParseState(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions ,message)
-	return parserResult.NextState
+	if !parserResult.Success {
+		fmt.Println(len(session.RejectMessages))
+		return session.RejectMessages[rand.Intn(len(session.RejectMessages))]
+	} else {
+		var transition ScriptParserAndBuilder.Transition
+		for i := 0; i < len(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions); i++ { //can be improved, need to have maps of transitions inside the states
+			if(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions[i].NextState == parserResult.NextState) {
+				transition = ScriptParserAndBuilder.ConstructedBot[session.State].Transitions[i]
+			}
+		}
+		session.State = parserResult.NextState;
+		session.RejectMessages = transition.Rejects
+		fmt.Println(session)
+		if transition.CustomFunction == "null" {
+			return transition.Replies[rand.Intn(len(transition.Replies))]
+		}
+		return ""
+	}
+
+	//return parserResult.NextState
 	/*
 	if parseResult.Success {
 		state.CurrentComponent = state.CurrentComponent.Connector.Transition(state)
