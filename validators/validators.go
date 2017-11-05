@@ -12,6 +12,10 @@ type ValidationReturn struct {
 	KeyValues map[string]string
 }
 
+func validatePhase1() {
+	
+}
+
 func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
 	//check HTTP verb
 	if(r.Method != "POST") {
@@ -30,6 +34,11 @@ func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
 	//check for the key "message"
 	if _, exists := JSONData["message"]; !exists { //_ is the message
 		return ValidationReturn{Success:false, Message:"JSON received doesn't have key \"Message\""}
+	}
+
+	//check for the key "UUID"
+	if _, exists := JSONData["UUID"]; !exists {
+		return ValidationReturn{Success:false, Message:"JSON received doesn't have key \"UUID\""}
 	}
 
 	// // a string slice to hold the keys

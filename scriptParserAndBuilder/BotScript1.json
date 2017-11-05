@@ -1,7 +1,7 @@
 {
     "BotScript":
     [
-        {
+        /*{
             "Name":"phase0",
             "Transitions":
             [
@@ -12,7 +12,7 @@
                     "CustomFunction":"null"
                 }
             ]
-        },
+        },*/ //won't use
         {
             "Name":"phase1",
             "Transitions":
@@ -20,7 +20,7 @@
                 {
                     "Keywords":["buy"],
                     "NextPhase":"phase2buy",
-                    "Replies":["Okay you want to buy. I'll search for you. What price range do you want? Enter a number."],
+                    "Replies":["Okay you want to buy. I'll search for you. What price do you want? Enter a number."],
                     "CustomFunction":"null"
                 },
                 {

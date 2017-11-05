@@ -7,7 +7,7 @@ import (
 	"./handlers"
 	"./bot"
 	"./parser"
-	"./scriptConstructor"
+	"./scriptParserAndBuilder"
 	"math/rand"
 	"time"
 )
@@ -18,9 +18,9 @@ type jsonResponse struct {
 }
 
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
-	scriptConstructor.ConstructBot();
-	//testBot()
+	rand.Seed(time.Now().UTC().UnixNano());
+	bot := scriptParserAndBuilder.ConstructBot();
+	
 	http.HandleFunc("/welcome", handlers.WelcomeHandler);
 	http.HandleFunc("/chat", handlers.ChatHandler);
 	http.ListenAndServe(":9000", nil);
@@ -34,7 +34,7 @@ func testBot() {
 	buySellConnector := bot.BuildSingleTransitionConnector(&byeComponent)
 	byeConnector := bot.BuildSingleTransitionConnector(&byeComponent)
 
-	welcomeComponent.Question = bot.BuildSimpleQuestion("")
+	welcomeComponent.Reply = "wewerw"
 	welcomeComponent.Name = "WelcomeComponent"
 	welcomeComponent.Parser = func(message string) parser.ParserResult { return parser.ParserResult{Success:true,Message:""}}
 	welcomeComponent.Handler = bot.BuildSimpleHandler("Hello and welcome to the shit service")

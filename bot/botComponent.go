@@ -3,9 +3,10 @@ package bot
 import "../parser"
 
 type BotComponent struct {
-	Question func(state *BotState) string
+	Reply []string
 	Name string
-	Parser func(message string) parser.ParserResult
+	CustomFunction string
 	Handler func(message interface{}, state *BotState) string
+	Parser func(message string) parser.ParserResult
 	Connector BotComponentConnector
 }
