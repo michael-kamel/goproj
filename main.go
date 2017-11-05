@@ -18,6 +18,7 @@ type jsonResponse struct {
 }
 
 func main() {
+	//fmt.Println(InputHandlers["test"](1,2))
 	rand.Seed(time.Now().UTC().UnixNano());
 	//fmt.Println(ScriptParserAndBuilder.ConstructedBot);
 

@@ -17,7 +17,7 @@ type Bot struct {
 type BotComponent struct {
 	Reply []string
 	Name string
-	CustomFunction string
+	CustomResponse string
 	Handler func(message interface{}, state *BotState) string
 	Parser func(message string) Parser.ParserResult
 	Connector BotComponentConnector
@@ -39,12 +39,15 @@ type stateDependentTransitionError  struct {
 
 //processor
 func Process(uuid string, message string) string {
-	fmt.Println(uuid)
+	//fmt.Println(uuid)
 	session := SessionManagement.UserSessions[uuid]
-	fmt.Println(session)
-	parserResult := Parser.MultiParseState(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions ,message)
+	if(session == nil) {
+		return "Session Error"
+	}
+	//fmt.Println(session)
+	parserResult := Parser.DetermineTransition(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions ,message)
 	if !parserResult.Success {
-		fmt.Println(len(session.RejectMessages))
+		//fmt.Println(len(session.RejectMessages))
 		return session.RejectMessages[rand.Intn(len(session.RejectMessages))]
 	} else {
 		var transition ScriptParserAndBuilder.Transition
@@ -53,13 +56,24 @@ func Process(uuid string, message string) string {
 				transition = ScriptParserAndBuilder.ConstructedBot[session.State].Transitions[i]
 			}
 		}
+		//direction-specific parsing and validation
+		if(transition.CustomParser != "null") {
+			if r := Parser.DSPV[transition.CustomParser](transition, message, session); r != "okay" {
+				return r
+			}
+		}
+
+		//response handlers
+
+
 		session.State = parserResult.NextState;
 		session.RejectMessages = transition.Rejects
-		fmt.Println(session)
-		if transition.CustomFunction == "null" {
+		fmt.Println(*session)
+		if transition.CustomResponse == "null" {
 			return transition.Replies[rand.Intn(len(transition.Replies))]
 		}
 		return ""
+		//need to return in json
 	}
 
 	//return parserResult.NextState

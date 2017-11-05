@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"encoding/json"
-	"../validators"
+	"../InputHandlers"
 	"../SessionManagement"
 	//"math/rand"
 	"time"
@@ -15,6 +15,10 @@ import (
 )
 
 func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
+	if(r.Method != "GET") {
+		w.Write([]byte("Invalid HTTP Verb!"))
+		return
+	}
 	generatedUUID := time.Now().UnixNano() / int64(time.Millisecond)
 	fmt.Println(generatedUUID);
 	SessionManagement.GenerateNewUserSession(fmt.Sprintf("%v", generatedUUID))
@@ -28,7 +32,7 @@ func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ChatHandler(w http.ResponseWriter, r *http.Request) {
-	s := validators.ValidateChat(w, r)
+	s := InputHandlers.ValidateChat(w, r)
 	if !s.Success {
 		w.Write([]byte(s.Message))
 		return

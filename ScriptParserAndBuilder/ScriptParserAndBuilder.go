@@ -19,10 +19,11 @@ type State struct {
 }
 type Transition struct {
 	Keywords []string
+	CustomParser string
 	NextState string
 	Replies []string
 	Rejects []string
-	CustomFunction string
+	CustomResponse string
 }
 
 

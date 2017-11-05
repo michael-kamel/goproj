@@ -3,7 +3,9 @@ package Parser
 import (
 	//"fmt"
 	"strings"
+	"strconv"
 	"../ScriptParserAndBuilder"
+	"../SessionManagement"
 )
 
 type ParserResult struct {
@@ -16,17 +18,36 @@ type KeywordsToNextState struct {
 	nextState string //the next state
 }
 
-func MultiParseState(transitions []ScriptParserAndBuilder.Transition, message string) ParserResult {
+
+//direction-specific parsing and validation
+//returns "okay" if input is valid, otherwise the error
+var DSPV map[string]func(ScriptParserAndBuilder.Transition, string, *SessionManagement.UserSession) string = map[string]func(ScriptParserAndBuilder.Transition, string, *SessionManagement.UserSession) string {
+	"phase2buy":func(transition ScriptParserAndBuilder.Transition, message string, session *SessionManagement.UserSession) string {
+		price, err := strconv.Atoi(message);
+		if err != nil {
+			return "Please enter a valid price"
+		}
+
+		session.Data.ItemPrice = price
+		return "okay"
+	},
+}
+
+
+func DetermineTransition(transitions []ScriptParserAndBuilder.Transition, message string) ParserResult {
+	if(len(transitions) == 1) {
+		return ParserResult{Success:true, NextState:transitions[0].NextState}
+	}
+
 	for i := 0; i < len(transitions); i++ {
-		pr := Parse(transitions[i].Keywords, message)
+		pr := parse(transitions[i].Keywords, message)
 		if(pr) {
 			return ParserResult{Success:true, NextState:transitions[i].NextState}
 		}
 	}
 	return ParserResult{Success:false}
 }
-
-func Parse(keywords []string, message string) bool {
+func parse(keywords []string, message string) bool {
 	for i := 0; i < len(keywords); i++ {
 		if strings.Contains(strings.ToLower(message), keywords[i]) {
 			return true //ParserResult{Success:true, Message:keywords[i]}

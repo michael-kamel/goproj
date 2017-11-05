@@ -7,17 +7,19 @@
             [
                 {
                     "Keywords":["buy"],
+                    "CustomParser":"null",
                     "NextState":"phase2buy",
                     "Replies":["Okay you want to buy. I'll search for you. What price do you want? Enter a number."],
                     "Rejects":["Sorry I can't understand your response. Please enter the price."],
-                    "CustomFunction":"null"
+                    "CustomResponse":"null"
                 },
                 {
                     "Keywords":["sell"],
+                    "CustomParser":"null",
                     "NextState":"phase2sell",
                     "Replies":["Okay what is the type of item that you want to sell?"],
                     "Rejects":["Sorry I can't understand your response. Please enter a valid type"],
-                    "CustomFunction":"null"
+                    "CustomResponse":"null"
                 }
             ]
         },
@@ -26,11 +28,12 @@
             "Transitions":
             [
                 {
-                    "Keywords":["e"],
+                    "Keywords":[],
+                    "CustomParser":"phase2buy",
                     "NextState":"bye",
-                    "Replies":["For how much do you want to buy it?"],
+                    "Replies":["Okay I'll search for relevent items (TODO)"],
                     "Rejects":["Sorry I can't understand your response. Please enter the price."],
-                    "CustomFunction":"null"
+                    "CustomResponse":"null"
                 }
             ]
         },
@@ -40,10 +43,11 @@
             [
                 {
                     "Keywords":[],
+                    "CustomParser":"null",
                     "NextState":"bye",
                     "Replies":["sthsth"],
                     "Rejects":["rrr"],
-                    "CustomFunction":"null"
+                    "CustomResponse":"null"
                 }
             ]
         },
@@ -53,10 +57,11 @@
             [
                 {
                     "Keywords":[],
+                    "CustomParser":"null",
                     "NextState":"bye",
                     "Replies":["done"],
                     "Rejects":[""],
-                    "CustomFunction":"null"
+                    "CustomResponse":"null"
                 }
             ]
         }
