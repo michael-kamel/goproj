@@ -1,7 +1,6 @@
 package scriptBuilder
 
 import (
-	"fmt"
 	"../bot"
 	"../parser"
 	"strings"
@@ -32,7 +31,6 @@ func (this *ScriptBuilder) LoadComponent(componentDescriptor ComponentDescriptor
 	switch componentDescriptor.Parser.Type {
 		case "KeywordParser": {
 			keywords := strings.Split(componentDescriptor.Parser.Data, ",")
-			fmt.Println(keywords)	
 			component.Parser = parser.GenerateKeywordParser(keywords)
 		}
 		case "RegexpParser":
