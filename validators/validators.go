@@ -26,7 +26,7 @@ func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
 		//panic(e)
 		return ValidationReturn{Success:false, Message:e.Error()}
 	}
-	fmt.Println(JSONData);
+	//fmt.Println(JSONData);
 
 	//check for the key "message"
 	if _, exists := JSONData["message"]; !exists { //_ is the message

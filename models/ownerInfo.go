@@ -1,7 +1,7 @@
 package models
 
 type OwnerInfo struct {
-	Name string
-	Phone string
-	Email string
+	Name string `json:"name"`
+	Phone string `json:"phone"`
+	Email string `json:"email"`
 }

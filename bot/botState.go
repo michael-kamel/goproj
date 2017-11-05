@@ -1,6 +1,6 @@
 package bot
 
 type BotState struct {
-	CurrentComponent BotComponent
+	CurrentComponent *BotComponent
 	Data map[string]interface{}
 }

@@ -2,8 +2,9 @@ package api
 
 import (
 	"net/http"
-	"encoding/json"
 	"bytes"
+	"io/ioutil"
+	"errors"
 )
 
 type MinJsonApiService struct{
@@ -13,40 +14,54 @@ type MinJsonApiService struct{
 func (this *MinJsonApiService) Init() {
 	this.client = &http.Client{}
 }
-func (this *MinJsonApiService) GetData(url string, query map[string]interface{}, data interface{}) {
+func (this *MinJsonApiService) GetData(url string, query map[string]string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
     if err != nil {
-        panic(err)
+        return nil, err
 	}
 	this.prepare(req)
-    q := req.URL.Query()
+	q := req.URL.Query()
+	for key, value := range query {
+		q.Add(key, value)
+	}
 	req.URL.RawQuery = q.Encode()
 	resp, err := this.client.Do(req)
 	if err != nil {
-        panic(err)
+        return nil, err
 	}
-	json.NewDecoder(resp.Body).Decode(data)
-	resp.Body.Close()
-}
-func (this *MinJsonApiService) PostData(url string, body map[string]interface{}, data interface{}) {
-	jsonString, err := json.Marshal(body)
+	if resp.StatusCode != 200 {
+		return nil, errors.New("Failed to get data from url:" + url)
+	}
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-        panic(err)
-    }
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonString))
-	this.prepare(req)
+         return nil, err
+	}
+	resp.Body.Close()
+	return body, nil
+}
+func (this *MinJsonApiService) PostData(url string, body []byte) ([]byte, error) {
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
     if err != nil {
-        panic(err)
-    }
+         return nil, err
+	}
+	this.prepare(req)
 	resp, err := this.client.Do(req)
 	if err != nil {
-        panic(err)
+         return nil, err
 	}
-	json.NewDecoder(resp.Body).Decode(data)
+	if resp.StatusCode != 200 {
+		return nil, errors.New("Failed to post data to url:" + url)
+	}
+	responseBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+         return nil, err
+	}
 	resp.Body.Close()
+	return responseBody, nil
 }
 func (this *MinJsonApiService) prepare(request *http.Request) {
-	for key, value := range this.Headers { 
+	for key, value := range this.Headers {
 		request.Header.Add(key, value)
 	}
+	request.Header.Set("Content-Type", "application/json")
 }

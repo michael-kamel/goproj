@@ -1,7 +1,7 @@
 package models
 
 type Listing struct {
-	ID string
+	Id string
 	OwnerInfo
 	Category string
 	Location string
