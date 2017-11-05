@@ -9,5 +9,6 @@
             "path": "github.com/gin-gonic/gin",
             "revision": "4cc2de6207f4128624cbdd16be30f64966c67c08"
         }
-    ]
+    ],
+    "rootPath":"goproj"
 }
