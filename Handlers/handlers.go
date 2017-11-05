@@ -40,7 +40,7 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 
 	//userSession := *SessionManagement.UserSessions[s.KeyValues["UUID"]]
 	//fmt.Println(userSession);
-	w.Write([]byte(Processor.Process(s.KeyValues["UUID"], s.KeyValues["message"])))
+	w.Write(Processor.Process(s.KeyValues["UUID"], s.KeyValues["message"]))
 
 
 

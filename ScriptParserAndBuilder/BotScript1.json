@@ -31,9 +31,9 @@
                     "Keywords":[],
                     "CustomParser":"phase2buy",
                     "NextState":"bye",
-                    "Replies":["Okay I'll search for relevent items (TODO)"],
+                    "Replies":["Okay here are some relevent items (TODO)"],
                     "Rejects":["Sorry I can't understand your response. Please enter the price."],
-                    "CustomResponse":"null"
+                    "CustomResponse":"test"
                 }
             ]
         },

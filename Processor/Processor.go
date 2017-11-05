@@ -8,6 +8,8 @@ import (
 	//"strings"
 	"../ScriptParserAndBuilder"
 	"../SessionManagement"
+	"../ResponseHandlers"
+	"encoding/json"
 )
 
 //structs
@@ -38,43 +40,45 @@ type stateDependentTransitionError  struct {
 
 
 //processor
-func Process(uuid string, message string) string {
+func Process(uuid string, message string) []byte {
 	//fmt.Println(uuid)
 	session := SessionManagement.UserSessions[uuid]
 	if(session == nil) {
-		return "Session Error"
+		return messageResponse("Session Error")
 	}
 	//fmt.Println(session)
 	parserResult := Parser.DetermineTransition(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions ,message)
 	if !parserResult.Success {
 		//fmt.Println(len(session.RejectMessages))
-		return session.RejectMessages[rand.Intn(len(session.RejectMessages))]
-	} else {
-		var transition ScriptParserAndBuilder.Transition
-		for i := 0; i < len(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions); i++ { //can be improved, need to have maps of transitions inside the states
-			if(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions[i].NextState == parserResult.NextState) {
-				transition = ScriptParserAndBuilder.ConstructedBot[session.State].Transitions[i]
-			}
-		}
-		//direction-specific parsing and validation
-		if(transition.CustomParser != "null") {
-			if r := Parser.DSPV[transition.CustomParser](transition, message, session); r != "okay" {
-				return r
-			}
-		}
-
-		//response handlers
-
-
-		session.State = parserResult.NextState;
-		session.RejectMessages = transition.Rejects
-		fmt.Println(*session)
-		if transition.CustomResponse == "null" {
-			return transition.Replies[rand.Intn(len(transition.Replies))]
-		}
-		return ""
-		//need to return in json
+		return messageResponse(session.RejectMessages[rand.Intn(len(session.RejectMessages))])
 	}
+
+
+	var transition ScriptParserAndBuilder.Transition
+	for i := 0; i < len(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions); i++ { //can be improved, need to have maps of transitions inside the states
+		if(ScriptParserAndBuilder.ConstructedBot[session.State].Transitions[i].NextState == parserResult.NextState) {
+			transition = ScriptParserAndBuilder.ConstructedBot[session.State].Transitions[i]
+		}
+	}
+	//direction-specific parsing and validation
+	if(transition.CustomParser != "null") {
+		if r := Parser.DSPV[transition.CustomParser](transition, message, session); r != "okay" {
+			return messageResponse(r)
+		}
+	}
+
+	session.State = parserResult.NextState;
+	session.RejectMessages = transition.Rejects;
+	fmt.Println(*session)
+
+	//response handlers
+	if transition.CustomResponse != "null" {
+		return messageResponse(transition.Replies[rand.Intn(len(transition.Replies))] + " " + ResponseHandlers.ResponseHandlers[transition.CustomResponse](transition, message, session))
+	}
+	return messageResponse(transition.Replies[rand.Intn(len(transition.Replies))])
+
+
+
 
 	//return parserResult.NextState
 	/*
@@ -89,6 +93,10 @@ func Process(uuid string, message string) string {
 		message := bot.UnhandledMessages[rand.Intn(len(bot.UnhandledMessages))]
 		return message
 	}*/
+}
+func messageResponse(s string) []byte {
+	j, _ := json.Marshal(map[string]string{"message":s});
+	return j
 }
 
 
