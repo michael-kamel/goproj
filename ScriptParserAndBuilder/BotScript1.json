@@ -1,31 +1,19 @@
 {
     "BotScript":
     [
-        /*{
-            "Name":"phase0",
-            "Transitions":
-            [
-                {
-                    "Keywords":[],
-                    "NextPhase":"phase1",
-                    "Replies":["Hello and welcome to the service! Do you want to buy or sell? Please type \"Buy\" or \"Sell\"."],
-                    "CustomFunction":"null"
-                }
-            ]
-        },*/ //won't use
         {
             "Name":"phase1",
             "Transitions":
             [
                 {
                     "Keywords":["buy"],
-                    "NextPhase":"phase2buy",
+                    "NextState":"phase2buy",
                     "Replies":["Okay you want to buy. I'll search for you. What price do you want? Enter a number."],
                     "CustomFunction":"null"
                 },
                 {
                     "Keywords":["sell"],
-                    "NextPhase":"phase2sell",
+                    "NextState":"phase2sell",
                     "Replies":["Okay what is the type of item that you want to sell?"],
                     "CustomFunction":"null"
                 }
@@ -37,7 +25,7 @@
             [
                 {
                     "Keywords":[],
-                    "NextPhase":"bye",
+                    "NextState":"bye",
                     "Replies":["For how much do you want to buy it?"],
                     "CustomFunction":"null"
                 }
@@ -49,7 +37,7 @@
             [
                 {
                     "Keywords":[],
-                    "NextPhase":"bye",
+                    "NextState":"bye",
                     "Replies":["sthsth"],
                     "CustomFunction":"null"
                 }
@@ -61,7 +49,7 @@
             [
                 {
                     "Keywords":[],
-                    "NextPhase":"bye",
+                    "NextState":"bye",
                     "Replies":["done"],
                     "CustomFunction":"null"
                 }

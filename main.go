@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 	//"encoding/json"
-	"./handlers"
-	"./bot"
-	"./parser"
-	"./scriptParserAndBuilder"
+	"./Handlers"
+	//"./bot"
+	//"./parser"
+	"./ScriptParserAndBuilder"
 	"math/rand"
 	"time"
 )
@@ -19,13 +19,15 @@ type jsonResponse struct {
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano());
-	bot := scriptParserAndBuilder.ConstructBot();
-	
-	http.HandleFunc("/welcome", handlers.WelcomeHandler);
-	http.HandleFunc("/chat", handlers.ChatHandler);
+	fmt.Println("main")
+	fmt.Println(ScriptParserAndBuilder.ConstructedBot);
+
+	http.HandleFunc("/welcome", Handlers.WelcomeHandler);
+	http.HandleFunc("/chat", Handlers.ChatHandler);
 	http.ListenAndServe(":9000", nil);
 	fmt.Println("listening on 9000");
 }
+/*
 func testBot() {
 	welcomeComponent := bot.BotComponent{}
 	buySellComponent := bot.BotComponent{}
@@ -91,4 +93,4 @@ func testBot() {
 	fmt.Println(bot.Process("test", &botState3, botDesc))
 	fmt.Println(bot.Process("buy", &botState3, botDesc))
 	fmt.Println(bot.Process("bye", &botState3, botDesc))
-}
+}*/

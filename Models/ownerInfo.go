@@ -1,4 +1,4 @@
-package models
+package Models
 
 type OwnerInfo struct {
 	Name string

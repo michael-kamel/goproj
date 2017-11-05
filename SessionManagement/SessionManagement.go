@@ -29,3 +29,6 @@ func GenerateNewUserSession(uuid string) {
 	UserSessions[uuid] = UserSession{UUID:uuid, State:"Phase0"}
 }
 
+func DeleteSession(uuid string) {
+	delete(UserSessions, uuid)
+}

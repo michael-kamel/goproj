@@ -1,4 +1,4 @@
-package stateCache
+package StateCache
 
 import "../bot"
 

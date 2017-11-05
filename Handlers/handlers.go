@@ -1,4 +1,4 @@
-package handlers
+package Handlers
 
 import (
 	"fmt"
@@ -10,8 +10,8 @@ import (
 	"time"
 	//"strconv"
 	//"../parser"
-	"../scriptParserAndBuilder"
-	"../bot"
+	//"../scriptParserAndBuilder"
+	"../Bot"
 )
 
 func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
@@ -22,8 +22,7 @@ func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	//respond with welcome message
 	w.Header().Set("Content-Type", "application/json");
-	jData, _ := json.Marshal(
-		map[string]string{"message":"Hi! E7na sherket el mor3ebeen el ma7dooda, would you like to buy or sell?", "uuid":"generateSthRandomHere"});
+	jData, _ := json.Marshal(map[string]string{"message":"Hi! E7na sherket el mor3ebeen el ma7dooda, would you like to buy or sell?", "uuid":string(generatedUUID)});
 	w.Write(jData)
 }
 
@@ -34,7 +33,12 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userSession = SessionManagement.GetUserSession(s.KeyValues["UUID"])
+	userSession := SessionManagement.GetUserSession(s.KeyValues["UUID"])
+	fmt.Println(userSession);
+	w.Write([]byte(Bot.Process(userSession, s.KeyValues["message"])))
+
+
+
 
 	//fmt.Println(s.KeyValues["message"]);
 	//testKeywords := new []

@@ -1,4 +1,4 @@
-package scriptParserAndBuilder
+package ScriptParserAndBuilder
 
 import (
 	"fmt"
@@ -11,22 +11,25 @@ import (
 )
 
 type ParsedBot struct {
-	BotScript []struct {
-		Name string
-		Transitions []struct {
-			Keywords []string
-			NextPhase string
-			Replies []string
-			CustomFunction string
-		}
-	}
+	BotScript []State 
+}
+type State struct {
+	Name string
+	Transitions []Transition
+}
+type Transition struct {
+	Keywords []string
+	NextState string
+	Replies []string
+	CustomFunction string
 }
 
-var ConstructedBot ParsedBot = ConstructBot()
 
-func ConstructBot() ParsedBot {
+var ConstructedBot map[string]State = ConstructBot()
+
+func ConstructBot() map[string]State {
 	wd, _ := os.Getwd();
-    file, e := ioutil.ReadFile(wd + "/scriptConstructor/BotScript1.json")
+    file, e := ioutil.ReadFile(wd + "/ScriptParserAndBuilder/BotScript1.json")
     if e != nil {
         fmt.Printf("File error: %v\n", e)
         os.Exit(1)
@@ -34,14 +37,24 @@ func ConstructBot() ParsedBot {
 	//fmt.Printf(string(file))
 	fmt.Println(reflect.TypeOf(file))
 
-	var constructedBot ParsedBot
-	err := json.Unmarshal(file, &constructedBot)
+	var parsedBot ParsedBot
+	err := json.Unmarshal(file, &parsedBot)
 	if err != nil {
 		fmt.Println("Cannot unmarshal the json ", err)
 		os.Exit(1)
 	}
 
-	return constructedBot
+	fmt.Println(parsedBot)
+
+	StatesMap := map[string]State{}
+
+	for i := 0; i < len(parsedBot.BotScript); i++ {
+		StatesMap[parsedBot.BotScript[i].Name]  = parsedBot.BotScript[i]
+	}
+
+	fmt.Println(StatesMap)
+
+	return StatesMap //constructedBot
 
 	//fmt.Printf("%+v\n", testObj)
 	
