@@ -31,26 +31,13 @@ func main() {
 	idGenerator := uidGenerator.DefaultUIDGenerator{}
 	idGenerator.Init()
 	handlerFuncs := handlers.Handlers(bots, botStateCache, &idGenerator)
-	/*sstate := &bot.BotState{
-		bots["Bolt"].RootComponent,
-		make(map[string]interface{}),
-	}
-	fmt.Println(bots["Bolt"].Process("a", sstate))
-	fmt.Println(bots["Bolt"].Process("buyer", sstate))
-	fmt.Println(bots["Bolt"].Process("Industrial", sstate))
-	fmt.Println(bots["Bolt"].Process("Nasr City", sstate))
-	fmt.Println(bots["Bolt"].Process("1500", sstate))
-	fmt.Println(bots["Bolt"].Process("47000000", sstate))
-	fmt.Println(bots["Bolt"].Process("Yes", sstate))
-	fmt.Println(bots["Bolt"].Process("Mike", sstate))
-	fmt.Println(bots["Bolt"].Process("12412142", sstate))
-	fmt.Println(bots["Bolt"].Process("mike@mike.com", sstate))*/
 	router := gin.Default()
 	router.GET("/welcome", handlerFuncs["Welcome"])
 	router.POST("/chat", handlerFuncs["Chat"])
 	router.OPTIONS("/chat", handlerFuncs["BS"])
 	router.Run(":" + os.Getenv("PORT"))
 }
+/*
 func testBot() {
 	welcomeComponent := bot.BotComponent {
 		"WelcomeComponent",
@@ -201,6 +188,7 @@ func testScript(){
 	fmt.Println(bolt.Process("..", &botState))
 	
 }
+*/
 func loadBots(directories []string) map[string]*bot.Bot {
 	apiService := api.MinJsonApiService{}
 	apiService.Init()
