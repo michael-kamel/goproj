@@ -14,7 +14,6 @@ import (
 	"goproj/stateCache"
 	"goproj/uidGenerator"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"log"
 )
 type jsonResponse struct {
@@ -26,10 +25,6 @@ var (
 	botStateCache stateCache.BotStateCache
 )
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 	botStateCache := &stateCache.InMemoryBotStateCache{}
 	botStateCache.Init()
 	bots := loadBots([]string{"./descriptions/bots.json"})
