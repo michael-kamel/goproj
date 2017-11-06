@@ -14,7 +14,6 @@ import (
 	"goproj/stateCache"
 	"goproj/uidGenerator"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 type jsonResponse struct {
 	Message string
