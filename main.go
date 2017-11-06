@@ -2,13 +2,10 @@ package main
 
 import (
 	"os"
-	"fmt"
 	"goproj/handlers"
 	"goproj/bot"
-	"goproj/parser"
 	"goproj/repositories"
 	"goproj/api"
-	"goproj/models"
 	"goproj/scriptBuilder"
 	"io/ioutil"
 	"goproj/stateCache"
