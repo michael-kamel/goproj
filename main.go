@@ -24,6 +24,7 @@ var (
 	botStateCache stateCache.BotStateCache
 )
 func main() {
+	fmt.Println(os.Getenv("BUYER_REQUEST_POST"))
 	botStateCache := &stateCache.InMemoryBotStateCache{}
 	botStateCache.Init()
 	bots := loadBots([]string{"./descriptions/bots.json"})
