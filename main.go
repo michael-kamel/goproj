@@ -48,7 +48,7 @@ func main() {
 	router.GET("/welcome", handlerFuncs["Welcome"])
 	router.POST("/chat", handlerFuncs["Chat"])
 	router.OPTIONS("/chat", handlerFuncs["BS"])
-	router.Run(os.Getenv("PORT"))
+	router.Run(":" + os.Getenv("PORT"))
 }
 func testBot() {
 	welcomeComponent := bot.BotComponent {
