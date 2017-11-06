@@ -3,16 +3,16 @@ package main
 import (
 	"os"
 	"fmt"
-	"./handlers"
-	"./bot"
-	"./parser"
-	"./repositories"
-	"./api"
-	"./models"
-	"./scriptBuilder"
+	"goproj/handlers"
+	"goproj/bot"
+	"goproj/parser"
+	"goproj/repositories"
+	"goproj/api"
+	"goproj/models"
+	"goproj/scriptBuilder"
 	"io/ioutil"
-	"./stateCache"
-	"./uidGenerator"
+	"goproj/stateCache"
+	"goproj/uidGenerator"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
@@ -187,7 +187,7 @@ func testScript(){
 	fProvider.Init()
 	sBuilder := scriptBuilder.ScriptBuilder{}
 	sBuilder.Init()
-	dat, err := ioutil.ReadFile("./descriptions/bots.json")
+	dat, err := ioutil.ReadFile("goproj/descriptions/bots.json")
 	if err != nil {
 		panic(err)
 	}

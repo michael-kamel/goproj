@@ -1,8 +1,8 @@
 package scriptBuilder
 
 import (
-	"../bot"
-	"../parser"
+	"goproj/bot"
+	"goproj/parser"
 	"strings"
 	"strconv"
 )

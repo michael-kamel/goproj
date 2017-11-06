@@ -2,7 +2,7 @@ package scriptBuilder
 
 import (
 	"encoding/json"
-	"../bot"
+	"goproj/bot"
 )
 
 func JsonScriptToBot(functionalityProvider FunctionalityProvider, scriptBuilder *ScriptBuilder, jsonData []byte) map[string]*bot.Bot {

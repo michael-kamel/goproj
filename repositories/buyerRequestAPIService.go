@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"../models"
-	"../api"
+	"goproj/models"
+	"goproj/api"
 	"encoding/json"
 )
 

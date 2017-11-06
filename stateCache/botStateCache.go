@@ -1,6 +1,6 @@
 package stateCache
 
-import "../bot"
+import "goproj/bot"
 
 type BotStateCache interface{
 	GetState(id string) *bot.BotState

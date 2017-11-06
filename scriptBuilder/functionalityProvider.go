@@ -2,10 +2,10 @@ package scriptBuilder
 
 import (
 	"strings"
-	"../bot"
+	"goproj/bot"
 	"fmt"
-	"../repositories"
-	"../models"
+	"goproj/repositories"
+	"goproj/models"
 )
 
 type FunctionalityProvider interface {

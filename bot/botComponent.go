@@ -1,6 +1,6 @@
 package bot
 
-import "../parser"
+import "goproj/parser"
 type BotQuestion func(state *BotState) string
 type BotParser func(message string) parser.ParserResult
 type BotHandler func(message interface{}, state *BotState) string

@@ -3,9 +3,9 @@ package handlers
 import (
 	"os"
 	"net/http"
-	"../bot"
-	"../stateCache"
-	"../uidGenerator"
+	"goproj/bot"
+	"goproj/stateCache"
+	"goproj/uidGenerator"
 	"github.com/gin-gonic/gin"
 )
 type Message struct {

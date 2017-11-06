@@ -1,6 +1,6 @@
 package stateCache
 
-import "../bot"
+import "goproj/bot"
 
 type InMemoryBotStateCache struct {
 	cache map[string] *bot.BotState

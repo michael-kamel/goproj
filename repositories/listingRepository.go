@@ -1,6 +1,6 @@
 package repositories
 
-import "../models"
+import "goproj/models"
 
 type ListingRepository interface {
 	GetListings(listing models.ListingSpecification) ([]models.Listing, error)

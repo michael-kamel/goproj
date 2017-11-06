@@ -1,6 +1,6 @@
 package repositories
 
-import "../models"
+import "goproj/models"
 
 type BuyerRequestRepository interface {
 	AddBuyerRequest(request models.BuyerRequest) error
