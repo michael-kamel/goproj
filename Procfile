@@ -1,1 +1,1 @@
-web: goproj
+web: go run main.go
