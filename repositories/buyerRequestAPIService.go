@@ -1,7 +1,6 @@
 package repositories
 
 import (
-	"fmt"
 	"goproj/models"
 	"goproj/api"
 	"encoding/json"
@@ -29,7 +28,6 @@ func (this *BuyerRequestAPIService) AddBuyerRequest(request models.BuyerRequest)
 	}
 	data, _ := json.Marshal(&buyerRequest)
 	_, err := this.ApiService.PostData(this.PostURL, data)
-	fmt.Println(err)
 	if err != nil {
 		return &unFulfilledRequest{
 			"AddBuyerRequest",
