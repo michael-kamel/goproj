@@ -42,12 +42,12 @@
             "Question":
             {
                 "Type":"Simple",
-                "Data":"Pick a category out of Residential, Adminstrative, Commerical, Industrial and Other"
+                "Data":"Pick a category out of Residential, Adminstrative, Commercial, Industrial and Other"
             },
             "Parser":
             {
                 "Type":"KeywordParser",
-                "Data":"Residential,Adminstrative,Commerical,Industrial,Other"
+                "Data":"Residential,Adminstrative,Commercial,Industrial,Other"
             },
             "Handler":
             {
