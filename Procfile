@@ -1,1 +1,1 @@
-web: goo
+web: goproj
