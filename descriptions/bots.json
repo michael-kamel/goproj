@@ -252,6 +252,24 @@
                 "Type":"Custom",
                 "Data":"ByeHandler"
             }
+        },
+        {
+            "Name":"AddressComponent",
+            "Question":
+            {
+                "Type":"Simple",
+                "Data":"What is the address?"
+            },
+            "Parser":
+            {
+                "Type":"RegexpParser",
+                "Data":".{10,}"
+            },
+            "Handler":
+            {
+                "Type":"DataFill",
+                "Data":"address,"
+            }
         }
     ],
     "Connectors":
@@ -265,6 +283,11 @@
             "Name":"ToBuySellConnector",
             "Type":"Simple",
             "Data":"BuySellComponent"
+        },
+        {
+            "Name":"ToAddressConnector",
+            "Type":"Simple",
+            "Data":"AddressComponent"
         },
         {
             "Name":"FromBuySellConnector",
@@ -356,7 +379,8 @@
                     "EmailSellerComponent",
                     "PriceSellerComponent",
                     "DescriptionComponent",
-                    "ByeComponent"
+                    "ByeComponent",
+                    "AddressComponent"
             ],
             "Connectors":
             [
@@ -375,7 +399,8 @@
                 "ToByeConnector",
                 "FromInterestedComponent",
                 "FromPriceBuyerConnector",
-                "RestartConnector"
+                "RestartConnector",
+                "ToAddressConnector"
             ],
             "Connections":
             [
@@ -421,6 +446,10 @@
                 },
                 {
                     "Component":"PriceSellerComponent",
+                    "Connector":"ToAddressConnector"
+                },
+                {
+                    "Component":"AddressComponent",
                     "Connector":"ToDescriptionConnector"
                 },
                 {

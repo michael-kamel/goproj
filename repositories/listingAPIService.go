@@ -13,6 +13,7 @@ type AddListingRequest struct {
 	Location string `json:"location"`
 	Space int `json:"space"`
 	Price int `json:"price"`
+	Address string `json:"address"`
 	Description string `json:"description"`
 }
 type GetListingBySpecificationResponse struct {
@@ -55,6 +56,7 @@ func (this *ListingAPIService) AddListing(listing models.Listing) error {
 		listing.Location,
 		listing.Space,
 		listing.Price,
+		listing.Address,
 		listing.Description,
 	}
 	data, _ := json.Marshal(request)

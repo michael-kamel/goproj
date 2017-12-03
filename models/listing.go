@@ -7,5 +7,6 @@ type Listing struct {
 	Location string
 	Space int
 	Price int
+	Address string
 	Description string
 }

@@ -12,7 +12,7 @@ import (
 	"goproj/uidGenerator"
 	"github.com/gin-gonic/gin"
 )
-//import _ "github.com/joho/godotenv/autoload"
+import _ "github.com/joho/godotenv/autoload"
 type jsonResponse struct {
 	Message string
 	UUID string

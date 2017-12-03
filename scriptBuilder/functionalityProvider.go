@@ -53,7 +53,8 @@ func (this *DefaultFunctionalityProvider) Init() {
 				} 
 				state.Data["iListings"] = listingIds
 				listing := listings[0]
-				return fmt.Sprintf("We have a listing that match your criteria with the following info Category:%s  Location:%s  Space:%d  Price:%d  Description:%s and %d more", listing.Category, listing.Location, listing.Space, listing.Price, listing.Description, len(listings)-1)
+				return fmt.Sprintf("%s/%s/%d/%d/%s/%s/%d", listing.Category, listing.Location, listing.Space, listing.Price, listing.Description, listing.Address, len(listings)-1)
+				//return fmt.Sprintf("We have a listing that match your criteria with the following info /n/t Category:%s  /n/t Location:%s /n/t Space:%d /n/t Price:%d /n/t Description:%s /n/t Address:%s /n and %d more", listing.Category, listing.Location, listing.Space, listing.Price, listing.Description, listing.Address, len(listings)-1)
 			}
 
 		},
@@ -87,6 +88,7 @@ func (this *DefaultFunctionalityProvider) Init() {
 				state.Data["location"].(string),
 				state.Data["space"].(int),
 				state.Data["price"].(int),
+				state.Data["address"].(string),
 				message.(string),
 			}
 			err := this.ListingRepository.AddListing(listing)
