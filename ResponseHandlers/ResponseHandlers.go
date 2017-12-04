@@ -123,7 +123,7 @@ var ResponseHandlers map[string]func(ScriptParserAndBuilder.Transition, string, 
 			list, ok := dat["listings"].([]interface{})
 			if ok {
 				if(len(list) == 0) {
-					return "No results were found for your search criteria."
+					return "No results were found for your search criteria. You can start over by typing buy or sell!"
 				}
 				var r string = "";
 				for i := 0; i < len(list); i++ {
