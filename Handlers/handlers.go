@@ -27,20 +27,30 @@ func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	//respond with welcome message
 	w.Header().Set("Content-Type", "application/json");
+	w.Header().Set("Access-Control-Allow-Origin", "*");
+
 	jData, _ := json.Marshal(map[string]string{"message":"Hi! E7na sherket el mor3ebeen el ma7dooda, would you like to buy or sell?", "uuid":fmt.Sprintf("%v", generatedUUID)});
 	w.Write(jData)
 }
 
 func ChatHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json");
+	w.Header().Set("Access-Control-Allow-Origin", "*");
+	w.Header().Set("Access-Control-Allow-Headers", "authorization, Content-Type")
+	
 	s := InputHandlers.ValidateChat(w, r)
 	if !s.Success {
 		w.Write([]byte(s.Message))
 		return
 	}
 
+
 	//userSession := *SessionManagement.UserSessions[s.KeyValues["UUID"]]
 	//fmt.Println(userSession);
-	w.Write(Processor.Process(s.KeyValues["UUID"], s.KeyValues["message"]))
+
+
+
+	w.Write(Processor.Process(s.KeyValues["authorization"], s.KeyValues["message"]))
 
 
 

@@ -4,20 +4,41 @@ type UserSession struct {
 	UUID string
 	State string
 	Data struct {
-		//general info
 		BuyerOrSeller string //enum "Buyer", "Seller"
-		MobileNumber string
-		Address string
 		
-		//buyer specific data
-		ItemLocation string
+		//contact info
+		Name string
+		Phone string
+		Email string
 
-		//seller specific data
+		//data
+		Category string
+		Location string
+		Space int
+		Price int
+		Address string
+		//seller
+		Description string
 
-		//common data (for both buyers and sellers)
-		ItemPrice int
+		//buyer
 	}
 	RejectMessages []string //previous state needs to set this
+	ReceivedItems []ReceivedItem
+	ReceivedItemsMessage string
+	ChosenItem string
+}
+
+type ReceivedItem struct {
+	Number int
+	ID string
+	/*Name string
+	Phone string
+	Email string
+	Category string
+	Location string
+	Space int
+	Price int
+	Description string*/
 }
 
 var UserSessions map[string]*UserSession = make(map[string]*UserSession)

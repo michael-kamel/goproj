@@ -11,15 +11,15 @@
                     "NextState":"phase2buy",
                     "Replies":["Okay you want to buy. I'll search for you. What price do you want? Enter a number."],
                     "Rejects":["Sorry I can't understand your response. Please enter the price."],
-                    "CustomResponse":"null"
+                    "CustomResponse":"setStateBuy"
                 },
                 {
                     "Keywords":["sell"],
                     "CustomParser":"null",
                     "NextState":"phase2sell",
-                    "Replies":["Okay what is the type of item that you want to sell?"],
+                    "Replies":["Okay what is the type of item that you want to sell? Type one of those: [Residential, Adminstrative, Commercial, Industrial, Other]"],
                     "Rejects":["Sorry I can't understand your response. Please enter a valid type"],
-                    "CustomResponse":"null"
+                    "CustomResponse":"setStateSell"
                 }
             ]
         },
@@ -29,25 +29,238 @@
             [
                 {
                     "Keywords":[],
-                    "CustomParser":"phase2buy",
-                    "NextState":"bye",
-                    "Replies":["Okay here are some relevent items (TODO)"],
-                    "Rejects":["Sorry I can't understand your response. Please enter the price."],
-                    "CustomResponse":"test"
+                    "CustomParser":"price",
+                    "NextState":"phase3buy",
+                    "Replies":["Okay we need to collect more information. Please choose a category! [Residential, Adminstrative, Commercial, Industrial, Other]"],
+                    "Rejects":["Sorry try again."],
+                    "CustomResponse":"null"
                 }
             ]
         },
+        {
+            "Name":"phase3buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"category",
+                    "NextState":"phase4buy",
+                    "Replies":["Okay now for space. Enter a number between 1000 and 2000."],
+                    "Rejects":["Sorry try trying again -_-"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase4buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"space",
+                    "NextState":"phase5buy",
+                    "Replies":["Finally the location. Choose one! [6th of October, Abbassiya, Agouza, Al Rehab, Dokki, El Sadat City, El Salam City, El Sayeda Zeinab, El Shorouk City, El Tagammoa El Khames, Faisal, Gesr El Suez, Giza, El Haram, Heliopolis, Helwan, Imbaba, Katameya, Maadi, Madinaty, Manial, Sheraton, Mokattam, Nasr City, New Cairo, Sheikh Zayed, Shoubra, Smart Village, Zamalek]"],
+                    "Rejects":["Try Again!"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase5buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"location",
+                    "NextState":"phase6buy",
+                    "Replies":[""],
+                    "Rejects":["Try Again"],
+                    "CustomResponse":"query"
+                }
+            ]
+        },
+        {
+            "Name":"phase6buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"chosenItem",
+                    "NextState":"phase7buy",
+                    "Replies":["Okay we need to record your contact info. Please provide your name."],
+                    "Rejects":["Try Again"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase7buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"name",
+                    "NextState":"phase8buy",
+                    "Replies":["Good! Now your phone."],
+                    "Rejects":["Try again"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase8buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"phone",
+                    "NextState":"phase9buy",
+                    "Replies":["And finally your email"],
+                    "Rejects":["Try again"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase9buy",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"email",
+                    "NextState":"phase1",
+                    "Replies":[""],
+                    "Rejects":["Try again"],
+                    "CustomResponse":"request"
+                }
+            ]
+        },
+
+
+
         {
             "Name":"phase2sell",
             "Transitions":
             [
                 {
                     "Keywords":[],
-                    "CustomParser":"null",
-                    "NextState":"bye",
-                    "Replies":["sthsth"],
-                    "Rejects":["rrr"],
+                    "CustomParser":"category",
+                    "NextState":"phase3sell",
+                    "Replies":["Okay. Please enter a location. Choose one from: [6th of October, Abbassiya, Agouza, Al Rehab, Dokki, El Sadat City, El Salam City, El Sayeda Zeinab, El Shorouk City, El Tagammoa El Khames, Faisal, Gesr El Suez, Giza, El Haram, Heliopolis, Helwan, Imbaba, Katameya, Maadi, Madinaty, Manial, Sheraton, Mokattam, Nasr City, New Cairo, Sheikh Zayed, Shoubra, Smart Village, Zamalek]."],
+                    "Rejects":["Sorry can't understand. Enter one of the locations. [6th of October, Abbassiya, Agouza, Al Rehab, Dokki, El Sadat City, El Salam City, El Sayeda Zeinab, El Shorouk City, El Tagammoa El Khames, Faisal, Gesr El Suez, Giza, El Haram, Heliopolis, Helwan, Imbaba, Katameya, Maadi, Madinaty, Manial, Sheraton, Mokattam, Nasr City, New Cairo, Sheikh Zayed, Shoubra, Smart Village, Zamalek]"],
                     "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase3sell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"location",
+                    "NextState":"phaseAddrSell",
+                    "Replies":["Okay. Next drop a pin on google maps. If you're not using the mobile app, we need a latitude and a longitude separated by a comma. Example: -34.0,151.0"],
+                    "Rejects":["Try again. Example: -34.0,151.0"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phaseAddrSell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"address",
+                    "NextState":"phase4sell",
+                    "Replies":["Okay. Please enter the space. Enter a number between 1000 and 2000."],
+                    "Rejects":["Try again. Just any number between 1000 and 2000."],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase4sell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"space",
+                    "NextState":"phase5sell",
+                    "Replies":["Okay. Finally the Price. We need a number between 10000000 & 500000000."],
+                    "Rejects":["Try again. Just any number between ..."],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase5sell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"price",
+                    "NextState":"phase5bsell",
+                    "Replies":["Good. Also a brief description."],
+                    "Rejects":["Try again?"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase5bsell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"description",
+                    "NextState":"phase6sell",
+                    "Replies":["Okay. Now for some contact details. What's your name or your company name?"],
+                    "Rejects":["Try again?"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase6sell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"name",
+                    "NextState":"phase7sell",
+                    "Replies":["Okay. Your phone?"],
+                    "Rejects":["Try again?"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase7sell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"phone",
+                    "NextState":"phase8sell",
+                    "Replies":["And finally your email."],
+                    "Rejects":["Try again?"],
+                    "CustomResponse":"null"
+                }
+            ]
+        },
+        {
+            "Name":"phase8sell",
+            "Transitions":
+            [
+                {
+                    "Keywords":[],
+                    "CustomParser":"email",
+                    "NextState":"phase1",
+                    "Replies":["Okay we sent your request! "],
+                    "Rejects":["Try again?"],
+                    "CustomResponse":"submit"
                 }
             ]
         },

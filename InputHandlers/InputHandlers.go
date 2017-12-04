@@ -51,7 +51,6 @@ var InputHandlers map[string]func(http.ResponseWriter, *http.Request) Validation
 
 
 
-//deprecated
 func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
 	//check HTTP verb
 	if(r.Method != "POST") {
@@ -73,9 +72,15 @@ func ValidateChat(w http.ResponseWriter, r *http.Request) ValidationReturn {
 	}
 
 	//check for the key "UUID"
-	if _, exists := JSONData["UUID"]; !exists {
-		return ValidationReturn{Success:false, Message:"JSON received doesn't have key \"UUID\""}
-	}
+	// if _, exists := JSONData["UUID"]; !exists {
+	// 	return ValidationReturn{Success:false, Message:"JSON received doesn't have key \"UUID\""}
+	// }
+
+	auth := r.Header.Get("Authorization")
+
+	println(auth)
+
+	JSONData["authorization"] = auth;
 
 	// // a string slice to hold the keys
 	// k := make([]string, len(c))
